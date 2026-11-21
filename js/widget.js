@@ -23,6 +23,8 @@
   let photoIndex = 0;
   let quoteIndex = 0;
   let toolbarOn = true;
+  const QUOTE_INTERVAL_MS = 10000;
+  let quoteTimer = null;
 
   function todayISO() {
     return new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Shanghai" });
@@ -79,10 +81,22 @@
     photoIndex = (photoIndex + 1) % PHOTOS.length;
     applyPhoto();
   }
-  function nextQuote() {
+  function advanceQuote() {
     if (!quotes.length) return;
     quoteIndex = (quoteIndex + 1) % quotes.length;
     applyQuote();
+  }
+  function restartQuoteTimer() {
+    if (quoteTimer) {
+      clearInterval(quoteTimer);
+      quoteTimer = null;
+    }
+    if (quotes.length < 2) return;
+    quoteTimer = setInterval(advanceQuote, QUOTE_INTERVAL_MS);
+  }
+  function nextQuote() {
+    advanceQuote();
+    restartQuoteTimer();
   }
   function applyToday() {
     const iso = todayISO();
@@ -161,6 +175,7 @@
     }
     applyToday();
     applyQuote();
+    restartQuoteTimer();
   }
   boot();
 })();

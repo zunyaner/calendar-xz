@@ -15,6 +15,10 @@
   let quote = null;
   let hero = null;
   let toastTimer = null;
+  const QUOTE_INTERVAL_MS = 10000;
+  let quotes = [];
+  let quoteIndex = 0;
+  let quoteTimer = null;
 
   /* ---------- time & helpers ---------- */
   function todayISO() {
@@ -163,6 +167,53 @@
     return "";
   }
 
+
+  /* ---------- rotating lyrics ---------- */
+  function quoteHTML(q) {
+    const it = q || { text: "", from: "" };
+    return `${escapeHtml(it.text)} <em> — ${escapeHtml(it.from)}</em>`;
+  }
+  function currentQuote() {
+    if (!quotes.length) return { text: "", from: "" };
+    return quotes[quoteIndex % quotes.length];
+  }
+  function paintQuote() {
+    quote = currentQuote();
+    const el = document.querySelector(".quote");
+    if (el) el.innerHTML = quoteHTML(quote);
+  }
+  function restartQuoteTimer() {
+    if (quoteTimer) {
+      clearInterval(quoteTimer);
+      quoteTimer = null;
+    }
+    if (quotes.length < 2) return;
+    quoteTimer = setInterval(function () {
+      quoteIndex = (quoteIndex + 1) % quotes.length;
+      paintQuote();
+    }, QUOTE_INTERVAL_MS);
+  }
+  function nextQuote() {
+    if (!quotes.length) return;
+    quoteIndex = (quoteIndex + 1) % quotes.length;
+    paintQuote();
+    restartQuoteTimer();
+  }
+  function bindQuoteCard() {
+    const el = document.querySelector(".quote");
+    if (!el) return;
+    el.addEventListener("click", function (e) {
+      e.preventDefault();
+      nextQuote();
+    });
+    el.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        nextQuote();
+      }
+    });
+  }
+
   /* ---------- render ---------- */
   function render() {
     if (!DATA) return;
@@ -214,7 +265,7 @@
               <div class="stat due"><b>${c.due}</b><span>今日到期</span></div>
               <div class="stat overdue"><b>${c.overdue}</b><span>逾期</span></div>
             </div>
-            <div class="quote">${escapeHtml(q.text)} <em> — ${escapeHtml(q.from)}</em></div>
+            <div class="quote" role="button" tabindex="0" aria-label="换一句">${quoteHTML(q)}</div>
           </div>
         </section>
         ${thisMonthBlock(today)}
@@ -231,6 +282,7 @@
       </div>
     </div>`;
     bindNav();
+    bindQuoteCard();
   }
 
   function heroForCurrentMonth() {
@@ -670,10 +722,12 @@
       if (!res.ok) throw new Error("HTTP " + res.status);
       DATA = await res.json();
       loadItems();
-      const qs = DATA.quotes || [];
-      quote = qs.length ? qs[Math.floor(Math.random() * qs.length)] : { text: "", from: "" };
+      quotes = DATA.quotes || [];
+      quoteIndex = quotes.length ? Math.floor(Math.random() * quotes.length) : 0;
+      quote = currentQuote();
       hero = heroForCurrentMonth();
       render();
+      restartQuoteTimer();
       window.addEventListener("hashchange", render);
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("./sw.js").catch(() => {});
