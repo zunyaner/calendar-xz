@@ -192,10 +192,6 @@
       ? `${d.holiday.type === "班" ? "调班上班" : "休息"} · ${d.holiday.name}`
       : (d && (d.kind === "周末") ? "周末" : "");
     const q = quote || DATA.quotes[0];
-    const standalone = window.navigator.standalone === true
-      || window.matchMedia("(display-mode: standalone)").matches;
-    const icsHttps = new URL("company-2027.ics", location.href).href;
-    const webcal = icsHttps.replace(/^https:/, "webcal:").replace(/^http:/, "webcal:");
 
     let months = "";
     for (let m = 1; m <= 12; m++) {
@@ -219,13 +215,8 @@
               <div class="stat overdue"><b>${c.overdue}</b><span>逾期</span></div>
             </div>
             <div class="quote">${escapeHtml(q.text)} <em> — ${escapeHtml(q.from)}</em></div>
-            <div class="actions">
-              <a class="btn-primary" id="btn-subscribe" href="${escapeHtml(webcal)}">订阅到 iPhone 日历</a>
-              <a class="btn-ghost" href="${escapeHtml(icsHttps)}" download="company-2027.ics">下载行事历</a>
-            </div>
           </div>
         </section>
-        ${standalone ? "" : `<p class="hint">用 <strong>Safari</strong> 打开本页，点底部分享按钮，再选「添加到主屏幕」，就可以像 App 一样从桌面打开。</p>`}
         ${thisMonthBlock(today)}
         <div class="sec-title">全年总览</div>
         <div class="legend">
@@ -409,12 +400,13 @@
       ${topbar("设置", `<button class="btn-text" data-go="#/">返回</button>`, "")}
       <div class="page settings">
         <div class="block">
-          <h3>订阅公司行事历</h3>
+          <h3>订阅与下载</h3>
           <p>把 2027 年的休息日、调班上班日和公司活动加到 iPhone 自带的「日历」里。系统通知比网页更稳。订阅日历在 iPhone 上<strong>可能不会弹出提醒</strong>，请以日历中的全天事件为准。</p>
           <div class="actions">
             <a class="btn-primary" href="${escapeHtml(webcal)}">订阅到 iPhone 日历</a>
-            <a class="btn-ghost" href="${escapeHtml(icsHttps)}" download="company-2027.ics">下载 .ics 文件</a>
+            <a class="btn-ghost" href="${escapeHtml(icsHttps)}" download="company-2027.ics">下载行事历</a>
           </div>
+          <p class="hint">用 <strong>Safari</strong> 打开本页，点底部分享按钮，再选「添加到主屏幕」，就可以像 App 一样从桌面打开。安装后可离线查看日历。网页版不能在后台到点推送通知，需要提醒请订阅上方的行事历，或继续用桌面上的「小宇宙提醒」。</p>
         </div>
         <div class="block">
           <h3>备份我的事项</h3>
@@ -424,10 +416,6 @@
             <button class="btn-ghost" type="button" id="btn-import">导入事项</button>
           </div>
           <input id="import-file" type="file" accept="application/json,.json" hidden>
-        </div>
-        <div class="block">
-          <h3>添加到主屏幕</h3>
-          <p>用 Safari 打开本页 → 点底部分享 → 「添加到主屏幕」。安装后可离线查看日历。网页版不能在后台到点推送通知，需要提醒请订阅上方的行事历，或继续用桌面上的「小宇宙提醒」。</p>
         </div>
         <div class="block">
           <h3>关于</h3>

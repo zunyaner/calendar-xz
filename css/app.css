@@ -121,7 +121,7 @@ a { color: var(--coral-dark); }
   line-height: 1.4;
 }
 .today-card .body {
-  padding: 12px 14px 0;
+  padding: 12px 14px 6px;
   display: grid;
   gap: 10px;
 }
@@ -185,6 +185,7 @@ a { color: var(--coral-dark); }
   line-height: 1.5;
 }
 .hint strong { color: var(--coral-dark); font-weight: 600; }
+.settings .hint { margin-top: 12px; }
 
 .sec-title {
   margin: 18px 4px 8px;
