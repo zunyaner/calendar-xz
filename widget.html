@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#110303">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="description" content="肖战日历锁屏壁纸预览，测试版。">
+  <title>锁屏预览 · 战日历</title>
+  <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="./css/widget.css">
+</head>
+<body>
+  <div id="stage">
+    <img id="bg" class="bg" alt="" draggable="false">
+    <div class="veil"></div>
+    <main class="content with-bar">
+      <section class="when">
+        <div id="date" class="date"></div>
+        <div id="week" class="week"></div>
+        <div id="lunar" class="lunar"></div>
+        <div id="status" class="status" hidden></div>
+      </section>
+      <section class="count-card" id="count-card">
+        <button type="button" class="edit" id="btn-edit-icon" aria-label="编辑倒计时">✎</button>
+        <div class="count-kicker">距离</div>
+        <div class="count-title" id="count-title"></div>
+        <div class="count-num" id="count-num"></div>
+      </section>
+      <p class="lyric" id="lyric"></p>
+    </main>
+    <nav id="toolbar" class="toolbar" aria-label="预览工具">
+      <p class="hint">再点空白处可隐藏按钮，方便截图</p>
+      <div class="bar">
+        <button type="button" id="btn-photo">换图</button>
+        <button type="button" id="btn-edit">编辑倒计时</button>
+        <a href="./">返回日历</a>
+      </div>
+    </nav>
+  </div>
+  <div id="editor" class="editor" hidden>
+    <div class="editor-panel" role="dialog" aria-labelledby="editor-title">
+      <h2 id="editor-title">编辑倒计时</h2>
+      <label>名称
+        <input id="edit-title" type="text" maxlength="24" placeholder="下一场演唱会">
+      </label>
+      <label>日期
+        <input id="edit-date" type="date">
+      </label>
+      <div class="editor-actions">
+        <button type="button" class="ghost" id="btn-cancel">取消</button>
+        <button type="button" class="primary" id="btn-save">保存</button>
+      </div>
+    </div>
+  </div>
+  <script src="./js/widget.js" defer></script>
+</body>
+</html>

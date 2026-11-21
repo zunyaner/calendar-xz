@@ -432,6 +432,13 @@
           <p style="margin-top:8px">${DATA.meta.notes.map(escapeHtml).join("<br>")}</p>
         </div>
         <div class="block">
+          <h3>锁屏壁纸预览</h3>
+          <p>一张可截图当锁屏或壁纸的预览页，先看效果。点空白处可把按钮藏起来再截图。</p>
+          <div class="actions">
+            <a class="btn-ghost" href="./widget.html">打开预览</a>
+          </div>
+        </div>
+        <div class="block">
           <h3>图片</h3>
           <p>图片：粉丝现场返图，仅个人使用。</p>
         </div>

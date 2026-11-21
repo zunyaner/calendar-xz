@@ -1,5 +1,5 @@
 /* 2027日历 service worker — static, cache-first, relative URLs */
-const CACHE = "cal2027-xz-v2";
+const CACHE = "cal2027-xz-v3";
 const ASSETS = [
   "./",
   "./index.html",
@@ -38,6 +38,18 @@ const ASSETS = [
   "./icons/card-12.jpg",
   "./icons/card-13.jpg",
   "./icons/card-14.jpg",
+  "./widget.html",
+  "./css/widget.css",
+  "./js/widget.js",
+  "./icons/widget-01.jpg",
+  "./icons/widget-02.jpg",
+  "./icons/widget-05.jpg",
+  "./icons/widget-06.jpg",
+  "./icons/widget-07.jpg",
+  "./icons/widget-09.jpg",
+  "./icons/widget-12.jpg",
+  "./icons/widget-13.jpg",
+  "./icons/widget-14.jpg",
   "./company-2027.ics"
 ];
 
