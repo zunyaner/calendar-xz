@@ -27,7 +27,8 @@
     "countsMatch": true,
     "theme": "xiao-zhan-red",
     "paletteNote": "应援色是红色，粉丝常用色号 #911005（取自生日 1991年10月5日）。不是竹青色。顶栏和按钮用这抹正红，白字对比度足够。",
-    "unofficial": "非官方个人主题版，与艺人及经纪公司无关。"
+    "unofficial": "非官方个人主题版，与艺人及经纪公司无关。",
+    "photoNote": "图片：粉丝现场返图，仅个人使用"
   },
   "colors": {
     "accent": "#911005",
@@ -7216,60 +7217,116 @@
   },
   "photos": [
     {
-      "id": "weibo-night-2020",
-      "title": "微博之夜 2020 颁奖盛典",
-      "date": "2020-01-11",
-      "commons": "https://commons.wikimedia.org/wiki/File:Xiao_Zhan_at_the_Weibo_Night_Ceremony_January_11_2020.jpg",
-      "author": "Pobediti丨肖战",
-      "license": "CC BY-SA 4.0",
-      "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
-      "out": "hero-weibo.jpg",
-      "month_out": "month-weibo.jpg",
-      "object_pos": "50% 12%",
-      "month_pos": "50% 16%",
-      "note": "颁奖盛典舞台，非个人巡回演唱会"
+      "id": "01",
+      "month": "2026-11",
+      "out": "hero-01.jpg",
+      "month_out": "card-01.jpg",
+      "object_pos": "center",
+      "month_pos": "center"
     },
     {
-      "id": "rising-moon-gala",
-      "title": "大湾区升明月晚会现场演唱",
-      "date": "2023-09-23",
-      "commons": "https://commons.wikimedia.org/wiki/File:Xiao_and_Karen_for_2024_Greater_Bay_Area_Rising_Moon_Gala.png",
-      "author": "中国新闻社",
-      "license": "CC BY-SA 3.0",
-      "license_url": "https://creativecommons.org/licenses/by-sa/3.0/",
-      "out": "hero-gala.jpg",
-      "month_out": "month-gala.jpg",
-      "object_pos": "48% 10%",
-      "month_pos": "48% 12%",
-      "note": "晚会现场演唱截图，已裁切为肖战单人画面；原图还有莫文蔚同台"
+      "id": "02",
+      "month": "2026-12",
+      "out": "hero-02.jpg",
+      "month_out": "card-02.jpg",
+      "object_pos": "center",
+      "month_pos": "center"
     },
     {
-      "id": "bigshow-mv-1",
-      "title": "X玖少年团《BIG SHOW》音乐视频剧照",
-      "date": "2019-03-06",
-      "commons": "https://commons.wikimedia.org/wiki/File:Xiao_Zhan_-_Big_Show_1.jpg",
-      "author": "WAJIJIWA Entertainment",
-      "license": "CC BY 3.0",
-      "license_url": "https://creativecommons.org/licenses/by/3.0/",
-      "out": "hero-bigshow1.jpg",
-      "month_out": "month-bigshow1.jpg",
-      "object_pos": "50% 20%",
-      "month_pos": "50% 22%",
-      "note": "官方 MV 剧照，不是演唱会现场"
+      "id": "03",
+      "month": "2027-02",
+      "out": "hero-03.jpg",
+      "month_out": "card-03.jpg",
+      "object_pos": "center",
+      "month_pos": "center"
     },
     {
-      "id": "bigshow-mv-2",
-      "title": "X玖少年团《BIG SHOW》音乐视频剧照",
-      "date": "2019-03-06",
-      "commons": "https://commons.wikimedia.org/wiki/File:Xiao_Zhan_-_Big_Show_2.jpg",
-      "author": "WAJIJIWA Entertainment",
-      "license": "CC BY 3.0",
-      "license_url": "https://creativecommons.org/licenses/by/3.0/",
-      "out": "hero-bigshow2.jpg",
-      "month_out": "month-bigshow2.jpg",
-      "object_pos": "50% 30%",
-      "month_pos": "50% 30%",
-      "note": "官方 MV 剧照，不是演唱会现场"
+      "id": "04",
+      "month": "2027-03",
+      "out": "hero-04.jpg",
+      "month_out": "card-04.jpg",
+      "object_pos": "center",
+      "month_pos": "center"
+    },
+    {
+      "id": "05",
+      "month": "2027-04",
+      "out": "hero-05.jpg",
+      "month_out": "card-05.jpg",
+      "object_pos": "center",
+      "month_pos": "center"
+    },
+    {
+      "id": "06",
+      "month": "2027-05",
+      "out": "hero-06.jpg",
+      "month_out": "card-06.jpg",
+      "object_pos": "center",
+      "month_pos": "center"
+    },
+    {
+      "id": "07",
+      "month": "2027-06",
+      "out": "hero-07.jpg",
+      "month_out": "card-07.jpg",
+      "object_pos": "center",
+      "month_pos": "center"
+    },
+    {
+      "id": "08",
+      "month": "2027-07",
+      "out": "hero-08.jpg",
+      "month_out": "card-08.jpg",
+      "object_pos": "center",
+      "month_pos": "center"
+    },
+    {
+      "id": "09",
+      "month": "2027-08",
+      "out": "hero-09.jpg",
+      "month_out": "card-09.jpg",
+      "object_pos": "center",
+      "month_pos": "center"
+    },
+    {
+      "id": "10",
+      "month": "2027-01",
+      "out": "hero-10.jpg",
+      "month_out": "card-10.jpg",
+      "object_pos": "center",
+      "month_pos": "center"
+    },
+    {
+      "id": "11",
+      "month": "2027-09",
+      "out": "hero-11.jpg",
+      "month_out": "card-11.jpg",
+      "object_pos": "center",
+      "month_pos": "center"
+    },
+    {
+      "id": "12",
+      "month": "2027-10",
+      "out": "hero-12.jpg",
+      "month_out": "card-12.jpg",
+      "object_pos": "center",
+      "month_pos": "center"
+    },
+    {
+      "id": "13",
+      "month": "2027-11",
+      "out": "hero-13.jpg",
+      "month_out": "card-13.jpg",
+      "object_pos": "center",
+      "month_pos": "center"
+    },
+    {
+      "id": "14",
+      "month": "2027-12",
+      "out": "hero-14.jpg",
+      "month_out": "card-14.jpg",
+      "object_pos": "center",
+      "month_pos": "center"
     }
   ]
 }

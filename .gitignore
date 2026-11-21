@@ -4,3 +4,5 @@ __pycache__/
 shots/
 .DS_Store
 .idea/
+user-out/
+user-src/

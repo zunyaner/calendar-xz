@@ -244,25 +244,19 @@
 
   function heroBlock() {
     if (!hero) return "";
-    const pos = hero.object_pos || "50% 15%";
+    const pos = hero.object_pos || "center";
     return `<div class="hero">
-            <img src="./icons/${escapeHtml(hero.out)}" alt="${escapeHtml(hero.title)}" style="object-position:${escapeHtml(pos)}">
+            <img src="./icons/${escapeHtml(hero.out)}" alt="" style="object-position:${escapeHtml(pos)}">
             <div class="fade"></div>
-          </div>
-          <div class="credit-line">${escapeHtml(hero.title)} · ${escapeHtml(hero.author)} · ${escapeHtml(hero.license)}</div>`;
+          </div>`;
   }
 
   function thisMonthBlock(today) {
     if (!todayInRange()) return "";
     const ym = currentMonthYM();
     const { y, m } = parseYM(ym);
-    const ph = monthPhoto(y, m);
-    const credit = ph
-      ? `<div class="month-photo-credit">本月背景：${escapeHtml(ph.title)} · ${escapeHtml(ph.author)} · ${escapeHtml(ph.license)}</div>`
-      : "";
     return `<div class="sec-title">本月 <button data-go="#/m/${ym}">打开详情</button></div>
-        <div class="this-month">${miniMonth(y, m, today, true)}</div>
-        ${credit}`;
+        <div class="this-month">${miniMonth(y, m, today, true)}</div>`;
   }
 
   function formatLong(iso) {
@@ -273,17 +267,18 @@
   function monthPhoto(y, m) {
     const photos = DATA.photos || [];
     if (!photos.length) return null;
-    return photos[(y * 12 + m) % photos.length];
+    const ym = y + "-" + pad(m);
+    return photos.find((ph) => ph.month === ym) || photos[(y * 12 + m) % photos.length];
   }
 
   function monthPhotoStyle(y, m) {
     const ph = monthPhoto(y, m);
     if (!ph) return "";
     const src = ph.month_out || ph.out;
-    const pos = ph.month_pos || ph.object_pos || "50% 20%";
+    const pos = ph.month_pos || ph.object_pos || "center";
     // background-image must be inline: url() inside a CSS variable is
     // resolved against css/app.css, not the page, and would 404.
-    return ` style="background-image:url('./icons/${escapeHtml(src)}');background-position:${escapeHtml(pos)}"`;
+    return ` style="background-image:url('./icons/${escapeHtml(src)}');background-size:cover;background-position:${escapeHtml(pos)}"`;
   }
 
   function miniMonth(y, m, today, featured) {
@@ -370,7 +365,6 @@
           <span><i style="background:var(--班)"></i>班</span>
           <span><i style="background:var(--周末)"></i>周末</span>
         </div>
-        ${monthPhoto(y, m) ? `<div class="month-photo-credit">${escapeHtml(monthPhoto(y, m).title)} · ${escapeHtml(monthPhoto(y, m).author)} · ${escapeHtml(monthPhoto(y, m).license)}</div>` : ""}
       </div>
     </div>`;
     bindNav();
@@ -438,11 +432,8 @@
           <p style="margin-top:8px">${DATA.meta.notes.map(escapeHtml).join("<br>")}</p>
         </div>
         <div class="block">
-          <h3>现场照片来源</h3>
-          <p>维基共享上目前没有可自由使用的肖战个人巡回演唱会现场照。主页大图和每月日历背景使用已标明许可的晚会舞台、颁奖盛典与官方音乐视频剧照，按月轮换。来源见下方各条。</p>
-          <ul>${(DATA.photos || []).map((ph) =>
-            `<li>${escapeHtml(ph.title)}（${escapeHtml(ph.date)}）<br><a href="${escapeHtml(ph.commons)}" target="_blank" rel="noopener">Wikimedia Commons</a> · <a href="${escapeHtml(ph.license_url)}" target="_blank" rel="noopener">${escapeHtml(ph.license)}</a></li>`
-          ).join("")}</ul>
+          <h3>图片</h3>
+          <p>图片：粉丝现场返图，仅个人使用。</p>
         </div>
       </div>
     </div>`;
