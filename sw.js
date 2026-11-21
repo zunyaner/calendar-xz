@@ -1,5 +1,7 @@
 /* 2027日历 service worker — static, cache-first, relative URLs */
-const CACHE = "cal2027-xz-v12";
+const CACHE = "cal2027-xz-v13";
+/* Shell only on install. Photos are cached at runtime (cache-first).
+   The page posts {type:"precache", urls:[...]} for the current-month images. */
 const ASSETS = [
   "./",
   "./index.html",
@@ -7,53 +9,13 @@ const ASSETS = [
   "./js/app.js",
   "./data/calendar-data.json",
   "./manifest.webmanifest",
-  "./icons/icon-192.png",
-  "./icons/icon-512.png",
+  "./icons/icon-192.webp",
   "./icons/apple-touch-icon.png",
-  "./icons/icon-512-maskable.png",
   "./icons/favicon-32.png",
   "./icons/favicon.ico",
-  "./icons/hero-01.jpg",
-  "./icons/hero-02.jpg",
-  "./icons/hero-03.jpg",
-  "./icons/hero-04.jpg",
-  "./icons/hero-05.jpg",
-  "./icons/hero-06.jpg",
-  "./icons/hero-07.jpg",
-  "./icons/hero-08.jpg",
-  "./icons/hero-09.jpg",
-  "./icons/hero-10.jpg",
-  "./icons/hero-11.jpg",
-  "./icons/hero-12.jpg",
-  "./icons/hero-13.jpg",
-  "./icons/hero-14.jpg",
-  "./icons/card-01.jpg",
-  "./icons/card-02.jpg",
-  "./icons/card-03.jpg",
-  "./icons/card-04.jpg",
-  "./icons/card-05.jpg",
-  "./icons/card-06.jpg",
-  "./icons/card-07.jpg",
-  "./icons/card-08.jpg",
-  "./icons/card-09.jpg",
-  "./icons/card-10.jpg",
-  "./icons/card-11.jpg",
-  "./icons/card-12.jpg",
-  "./icons/card-13.jpg",
-  "./icons/card-14.jpg",
   "./widget.html",
   "./css/widget.css",
-  "./js/widget.js",
-  "./icons/widget-01.jpg",
-  "./icons/widget-02.jpg",
-  "./icons/widget-05.jpg",
-  "./icons/widget-06.jpg",
-  "./icons/widget-07.jpg",
-  "./icons/widget-09.jpg",
-  "./icons/widget-12.jpg",
-  "./icons/widget-13.jpg",
-  "./icons/widget-14.jpg",
-  "./company-2027.ics"
+  "./js/widget.js"
 ];
 
 self.addEventListener("install", (event) => {
@@ -67,6 +29,14 @@ self.addEventListener("activate", (event) => {
     caches.keys().then((keys) =>
       Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)))
     ).then(() => self.clients.claim())
+  );
+});
+
+self.addEventListener("message", (event) => {
+  const data = event.data || {};
+  if (data.type !== "precache" || !Array.isArray(data.urls) || !data.urls.length) return;
+  event.waitUntil(
+    caches.open(CACHE).then((cache) => cache.addAll(data.urls)).catch(() => {})
   );
 });
 

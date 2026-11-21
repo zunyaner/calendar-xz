@@ -460,9 +460,18 @@ a { color: var(--coral-dark); }
   position: relative;
   overflow: hidden;
   background-color: #fff;
-  background-size: cover;
-  background-position: center 28%;
-  background-repeat: no-repeat;
+}
+.mini.has-photo > img.photo-bg,
+.month-wrap.has-photo > img.photo-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  pointer-events: none;
+  border: 0;
+  border-radius: inherit;
 }
 .mini.has-photo::before,
 .month-wrap.has-photo::before {
@@ -471,12 +480,12 @@ a { color: var(--coral-dark); }
   inset: 0;
   background: rgba(255, 255, 255, 0.67);
   pointer-events: none;
-  z-index: 0;
-}
-.mini.has-photo > *,
-.month-wrap.has-photo > * {
-  position: relative;
   z-index: 1;
+}
+.mini.has-photo > *:not(.photo-bg),
+.month-wrap.has-photo > *:not(.photo-bg) {
+  position: relative;
+  z-index: 2;
 }
 /* 全年总览小卡：白膜稍厚，日期更清楚 */
 .year-grid .mini.has-photo::before {
@@ -503,7 +512,6 @@ a { color: var(--coral-dark); }
   border-radius: var(--radius);
   padding: 10px 8px 12px;
   box-shadow: var(--shadow);
-  background-position: center 22%;
 }
 .month-wrap.has-photo::before {
   background: rgba(255, 255, 255, 0.61);

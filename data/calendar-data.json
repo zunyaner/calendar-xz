@@ -7219,115 +7219,129 @@
     {
       "id": "01",
       "month": "2026-11",
-      "out": "hero-01.jpg",
-      "month_out": "card-01.jpg",
+      "out": "hero-01.webp",
+      "month_out": "card-01.webp",
       "object_pos": "center",
-      "month_pos": "center 28%"
+      "month_pos": "center 28%",
+      "thumb_out": "thumb-01.webp"
     },
     {
       "id": "02",
       "month": "2026-12",
-      "out": "hero-02.jpg",
-      "month_out": "card-02.jpg",
+      "out": "hero-02.webp",
+      "month_out": "card-02.webp",
       "object_pos": "center",
-      "month_pos": "center 28%"
+      "month_pos": "center 28%",
+      "thumb_out": "thumb-02.webp"
     },
     {
       "id": "03",
       "month": "2027-02",
-      "out": "hero-03.jpg",
-      "month_out": "card-03.jpg",
+      "out": "hero-03.webp",
+      "month_out": "card-03.webp",
       "object_pos": "center",
-      "month_pos": "center center"
+      "month_pos": "center center",
+      "thumb_out": "thumb-03.webp"
     },
     {
       "id": "04",
       "month": "2027-03",
-      "out": "hero-04.jpg",
-      "month_out": "card-04.jpg",
+      "out": "hero-04.webp",
+      "month_out": "card-04.webp",
       "object_pos": "center",
-      "month_pos": "center center"
+      "month_pos": "center center",
+      "thumb_out": "thumb-04.webp"
     },
     {
       "id": "05",
       "month": "2027-04",
-      "out": "hero-05.jpg",
-      "month_out": "card-05.jpg",
+      "out": "hero-05.webp",
+      "month_out": "card-05.webp",
       "object_pos": "center",
-      "month_pos": "center 28%"
+      "month_pos": "center 28%",
+      "thumb_out": "thumb-05.webp"
     },
     {
       "id": "06",
       "month": "2027-05",
-      "out": "hero-06.jpg",
-      "month_out": "card-06.jpg",
+      "out": "hero-06.webp",
+      "month_out": "card-06.webp",
       "object_pos": "center",
-      "month_pos": "center 28%"
+      "month_pos": "center 28%",
+      "thumb_out": "thumb-06.webp"
     },
     {
       "id": "07",
       "month": "2027-06",
-      "out": "hero-07.jpg",
-      "month_out": "card-07.jpg",
+      "out": "hero-07.webp",
+      "month_out": "card-07.webp",
       "object_pos": "center",
-      "month_pos": "center 28%"
+      "month_pos": "center 28%",
+      "thumb_out": "thumb-07.webp"
     },
     {
       "id": "08",
       "month": "2027-07",
-      "out": "hero-08.jpg",
-      "month_out": "card-08.jpg",
+      "out": "hero-08.webp",
+      "month_out": "card-08.webp",
       "object_pos": "center",
-      "month_pos": "center center"
+      "month_pos": "center center",
+      "thumb_out": "thumb-08.webp"
     },
     {
       "id": "09",
       "month": "2027-08",
-      "out": "hero-09.jpg",
-      "month_out": "card-09.jpg",
+      "out": "hero-09.webp",
+      "month_out": "card-09.webp",
       "object_pos": "center",
-      "month_pos": "center 72%"
+      "month_pos": "center 72%",
+      "thumb_out": "thumb-09.webp"
     },
     {
       "id": "10",
       "month": "2027-01",
-      "out": "hero-10.jpg",
-      "month_out": "card-10.jpg",
+      "out": "hero-10.webp",
+      "month_out": "card-10.webp",
       "object_pos": "center",
       "month_pos": "center center",
-      "hero_out": "hero-06.jpg"
+      "hero_out": "hero-06.webp",
+      "thumb_out": "thumb-10.webp"
     },
     {
       "id": "11",
       "month": "2027-09",
-      "out": "hero-11.jpg",
-      "month_out": "card-11.jpg",
+      "out": "hero-11.webp",
+      "month_out": "card-11.webp",
       "object_pos": "center",
-      "month_pos": "center center"
+      "month_pos": "center center",
+      "thumb_out": "thumb-11.webp"
     },
     {
       "id": "12",
       "month": "2027-10",
-      "out": "hero-12.jpg",
-      "month_out": "card-12.jpg",
+      "out": "hero-12.webp",
+      "month_out": "card-12.webp",
       "object_pos": "center",
-      "month_pos": "center 28%"
+      "month_pos": "center 28%",
+      "thumb_out": "thumb-12.webp"
     },
     {
       "id": "13",
       "month": "2027-11",
-      "out": "hero-13.jpg",
-      "month_out": "card-13.jpg",
+      "out": "hero-13.webp",
+      "month_out": "card-13.webp",
       "object_pos": "center",
-      "month_pos": "center 28%"
+      "month_pos": "center 28%",
+      "thumb_out": "thumb-13.webp"
     },
     {
       "id": "14",
       "month": "2027-12",
-      "out": "hero-14.jpg",
-      "month_out": "card-14.jpg",
+      "out": "hero-14.webp",
+      "month_out": "card-14.webp",
       "object_pos": "center",
-      "month_pos": "center 28%"
+      "month_pos": "center 28%",
+      "thumb_out": "thumb-14.webp"
     }
   ]
 }

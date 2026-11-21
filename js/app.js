@@ -295,10 +295,38 @@
     if (!hero) return "";
     const pos = hero.object_pos || "center";
     const src = hero.hero_out || hero.out;
+    preloadHero(src);
     return `<div class="hero">
-            <img src="./icons/${escapeHtml(src)}" alt="" style="object-position:${escapeHtml(pos)}">
+            <img src="./icons/${escapeHtml(src)}" alt="" fetchpriority="high" decoding="async" style="object-position:${escapeHtml(pos)}">
             <div class="fade"></div>
           </div>`;
+  }
+  function preloadHero(src) {
+    if (!src) return;
+    let link = document.querySelector('link[data-hero-preload]');
+    if (!link) {
+      link = document.createElement("link");
+      link.rel = "preload";
+      link.as = "image";
+      link.setAttribute("data-hero-preload", "1");
+      document.head.appendChild(link);
+    }
+    link.href = "./icons/" + src;
+  }
+  function photoFile(ph, kind) {
+    if (!ph) return "";
+    if (kind === "hero") return ph.hero_out || ph.out;
+    if (kind === "thumb") return ph.thumb_out || ph.month_out || ph.out;
+    return ph.month_out || ph.out;
+  }
+  function monthPhotoImg(y, m, kind, eager) {
+    const ph = monthPhoto(y, m);
+    if (!ph) return "";
+    const src = photoFile(ph, kind);
+    const pos = ph.month_pos || ph.object_pos || "center";
+    const loading = eager ? "eager" : "lazy";
+    const prio = eager ? ' fetchpriority="high"' : "";
+    return `<img class="photo-bg" src="./icons/${escapeHtml(src)}" alt="" loading="${loading}" decoding="async"${prio} style="object-position:${escapeHtml(pos)}">`;
   }
 
   function thisMonthBlock(today) {
@@ -349,7 +377,8 @@
       ].filter(Boolean).join(" ");
       return `<div class="${cls}"><span class="n">${Number(iso.slice(-2))}</span>${lab ? `<span class="lab">${escapeHtml(lab)}</span>` : ""}</div>`;
     }).join("");
-    return `<button type="button" class="mini${featured ? " featured" : ""}${photoCls}" data-go="#/m/${ym}"${monthPhotoStyle(y, m)}>
+    return `<button type="button" class="mini${featured ? " featured" : ""}${photoCls}" data-go="#/m/${ym}">
+      ${photoCls ? monthPhotoImg(y, m, featured ? "card" : "thumb", !!featured) : ""}
       <div class="mtitle">${title}</div>
       <div class="dow">${WEEKDAYS.map((w) => `<span>${w}</span>`).join("")}</div>
       <div class="days">${daysHtml}</div>
@@ -404,7 +433,8 @@
         </span>`
       )}
       <div class="page">
-        <div class="month-wrap has-photo" id="month-wrap"${monthPhotoStyle(y, m)}>
+        <div class="month-wrap has-photo" id="month-wrap">
+          ${monthPhotoImg(y, m, "card", true)}
           <div class="month-dow">${WEEKDAYS.map((w) => `<span>${w}</span>`).join("")}</div>
           <div class="month-grid">${grid}</div>
         </div>
@@ -715,6 +745,31 @@
     toastTimer = setTimeout(() => el.remove(), 2200);
   }
 
+
+  function precacheCurrentMonth() {
+    if (!("serviceWorker" in navigator) || !DATA) return;
+    const urls = [];
+    const seen = {};
+    function add(file) {
+      if (!file || seen[file]) return;
+      seen[file] = true;
+      urls.push("./icons/" + file);
+    }
+    const h = heroForCurrentMonth();
+    if (h) add(photoFile(h, "hero"));
+    const ym = currentMonthYM();
+    const { y, m } = parseYM(ym);
+    const ph = monthPhoto(y, m);
+    if (ph) {
+      add(photoFile(ph, "card"));
+      add(photoFile(ph, "thumb"));
+    }
+    if (!urls.length) return;
+    navigator.serviceWorker.ready.then(function (reg) {
+      if (reg.active) reg.active.postMessage({ type: "precache", urls: urls });
+    }).catch(function () {});
+  }
+
   /* ---------- boot ---------- */
   async function boot() {
     try {
@@ -730,7 +785,9 @@
       restartQuoteTimer();
       window.addEventListener("hashchange", render);
       if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("./sw.js").catch(() => {});
+        navigator.serviceWorker.register("./sw.js").then(function () {
+          precacheCurrentMonth();
+        }).catch(() => {});
       }
     } catch (err) {
       $app.innerHTML = `<div class="err">日历数据加载失败。<br>${escapeHtml(err.message || String(err))}</div>`;

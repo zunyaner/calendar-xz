@@ -65,7 +65,7 @@
   }
 
   function applyPhoto() {
-    $("bg").src = "./icons/widget-" + PHOTOS[photoIndex] + ".jpg";
+    $("bg").src = "./icons/widget-" + PHOTOS[photoIndex] + ".webp";
   }
   function applyQuote() {
     if (!quotes.length) {
