@@ -7222,7 +7222,7 @@
       "out": "hero-01.jpg",
       "month_out": "card-01.jpg",
       "object_pos": "center",
-      "month_pos": "center"
+      "month_pos": "center 28%"
     },
     {
       "id": "02",
@@ -7230,7 +7230,7 @@
       "out": "hero-02.jpg",
       "month_out": "card-02.jpg",
       "object_pos": "center",
-      "month_pos": "center"
+      "month_pos": "center 28%"
     },
     {
       "id": "03",
@@ -7238,7 +7238,7 @@
       "out": "hero-03.jpg",
       "month_out": "card-03.jpg",
       "object_pos": "center",
-      "month_pos": "center"
+      "month_pos": "center center"
     },
     {
       "id": "04",
@@ -7246,7 +7246,7 @@
       "out": "hero-04.jpg",
       "month_out": "card-04.jpg",
       "object_pos": "center",
-      "month_pos": "center"
+      "month_pos": "center center"
     },
     {
       "id": "05",
@@ -7254,7 +7254,7 @@
       "out": "hero-05.jpg",
       "month_out": "card-05.jpg",
       "object_pos": "center",
-      "month_pos": "center"
+      "month_pos": "center 28%"
     },
     {
       "id": "06",
@@ -7262,7 +7262,7 @@
       "out": "hero-06.jpg",
       "month_out": "card-06.jpg",
       "object_pos": "center",
-      "month_pos": "center"
+      "month_pos": "center 28%"
     },
     {
       "id": "07",
@@ -7270,7 +7270,7 @@
       "out": "hero-07.jpg",
       "month_out": "card-07.jpg",
       "object_pos": "center",
-      "month_pos": "center"
+      "month_pos": "center 28%"
     },
     {
       "id": "08",
@@ -7278,7 +7278,7 @@
       "out": "hero-08.jpg",
       "month_out": "card-08.jpg",
       "object_pos": "center",
-      "month_pos": "center"
+      "month_pos": "center center"
     },
     {
       "id": "09",
@@ -7286,7 +7286,7 @@
       "out": "hero-09.jpg",
       "month_out": "card-09.jpg",
       "object_pos": "center",
-      "month_pos": "center"
+      "month_pos": "center 72%"
     },
     {
       "id": "10",
@@ -7294,7 +7294,7 @@
       "out": "hero-10.jpg",
       "month_out": "card-10.jpg",
       "object_pos": "center",
-      "month_pos": "center",
+      "month_pos": "center center",
       "hero_out": "hero-06.jpg"
     },
     {
@@ -7303,7 +7303,7 @@
       "out": "hero-11.jpg",
       "month_out": "card-11.jpg",
       "object_pos": "center",
-      "month_pos": "center"
+      "month_pos": "center center"
     },
     {
       "id": "12",
@@ -7311,7 +7311,7 @@
       "out": "hero-12.jpg",
       "month_out": "card-12.jpg",
       "object_pos": "center",
-      "month_pos": "center"
+      "month_pos": "center 28%"
     },
     {
       "id": "13",
@@ -7319,7 +7319,7 @@
       "out": "hero-13.jpg",
       "month_out": "card-13.jpg",
       "object_pos": "center",
-      "month_pos": "center"
+      "month_pos": "center 28%"
     },
     {
       "id": "14",
@@ -7327,7 +7327,7 @@
       "out": "hero-14.jpg",
       "month_out": "card-14.jpg",
       "object_pos": "center",
-      "month_pos": "center"
+      "month_pos": "center 28%"
     }
   ]
 }
