@@ -25,22 +25,23 @@
       "年度出勤日": 248
     },
     "countsMatch": true,
-    "theme": "xiao-zhan-red",
-    "paletteNote": "应援色是红色，粉丝常用色号 #911005（取自生日 1991年10月5日）。不是竹青色。顶栏和按钮用这抹正红，白字对比度足够。",
+    "theme": "xiao-zhan-soft-red",
+    "paletteNote": "整体是淡淡的红色调：主色用柔和的蕊红 #D98986 / #E8A8A4，页面和顶栏铺浅粉红渐变，文字用深红褐 #5C2426，既有红色氛围又不太刺眼。",
     "unofficial": "非官方个人主题版，与艺人及经纪公司无关。",
     "photoNote": "图片：粉丝现场返图，仅个人使用"
   },
   "colors": {
-    "accent": "#911005",
-    "coral": "#911005",
-    "coralDark": "#6E0C04",
-    "bg": "#FBF6F4",
+    "accent": "#D98986",
+    "coral": "#D98986",
+    "coralDark": "#8B3A3A",
+    "peach": "#F0C0BC",
+    "bg": "#F8E0DC",
     "国定": "#FFE97F",
     "休": "#FDE2E2",
     "年休": "#C6E0B4",
     "班": "#DCE6F1",
-    "今天": "#FFD966",
-    "周末": "#F8E8E6"
+    "今天": "#F0B8B4",
+    "周末": "#F6D8D4"
   },
   "quotes": [
     {

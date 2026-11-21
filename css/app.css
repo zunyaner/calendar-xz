@@ -1,25 +1,26 @@
-/* 2027日历·肖战 — 应援红 theme, mobile-first */
+/* 2027日历·肖战 — 淡红 theme, mobile-first */
 :root {
-  --peach: #911005;
-  --coral: #911005;
-  --coral-dark: #6E0C04;
-  --coral-deep: #4A0803;
-  --bg: #FBF6F4;
-  --card: #ffffff;
-  --text: #3A1A16;
-  --muted: #8A5A54;
-  --line: #E8D0CC;
+  --peach: #F0C0BC;
+  --coral: #D98986;
+  --coral-dark: #8B3A3A;
+  --coral-deep: #5C2426;
+  --bg: #F8E0DC;
+  --card: rgba(255, 255, 255, 0.82);
+  --card-border: rgba(224, 160, 156, 0.55);
+  --text: #5C2426;
+  --muted: #7A4440;
+  --line: #E8C0BC;
   --国定: #FFE97F;
   --休: #FDE2E2;
   --年休: #C6E0B4;
   --班: #DCE6F1;
-  --今天: #FFD966;
-  --周末: #F8E8E6;
-  --high: #D9534F;
+  --今天: #F0B8B4;
+  --周末: #F6D8D4;
+  --high: #B04A4A;
   --mid: #E89A3C;
-  --low: #9A908C;
+  --low: #8A7A78;
   --ok: #3D7A3D;
-  --shadow: 0 8px 24px rgba(145, 16, 5, 0.12);
+  --shadow: 0 8px 24px rgba(184, 90, 86, 0.18);
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --safe-left: env(safe-area-inset-left, 0px);
@@ -29,7 +30,10 @@
 }
 
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text);
+html, body { margin: 0; padding: 0; color: var(--text);
+  background-color: var(--bg);
+  background-image: linear-gradient(180deg, #F8DCD8 0%, #FAE6E2 45%, #F3D0CC 100%);
+  background-attachment: fixed;
   font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB",
     "Noto Sans SC", "Microsoft YaHei", sans-serif;
   min-height: 100%; }
@@ -56,8 +60,8 @@ a { color: var(--coral-dark); }
 /* ===== Header ===== */
 .topbar {
   position: sticky; top: 0; z-index: 20;
-  background: linear-gradient(120deg, #6E0C04 0%, #911005 55%, #B31A14 100%);
-  color: #fff;
+  background: linear-gradient(120deg, #E8A8A4 0%, #F0C0BC 48%, #F3D0CC 100%);
+  color: #5C2426;
   padding: calc(var(--safe-top) + 10px) 16px 12px;
   display: flex; align-items: center; justify-content: space-between;
   gap: 8px;
@@ -66,14 +70,14 @@ a { color: var(--coral-dark); }
   margin: 0; font-size: 18px; font-weight: 700; letter-spacing: 0.04em;
 }
 .topbar .btn-icon, .topbar .btn-text {
-  color: #fff;
+  color: #5C2426;
   min-width: 36px; min-height: 36px;
   display: inline-flex; align-items: center; justify-content: center;
   border-radius: 10px;
   font-size: 15px; font-weight: 600;
 }
 .topbar .btn-text { padding: 0 8px; }
-.topbar .btn-icon:active, .topbar .btn-text:active { background: rgba(255,255,255,0.15); }
+.topbar .btn-icon:active, .topbar .btn-text:active { background: rgba(92, 36, 38, 0.10); }
 .topbar .mid {
   display: flex; align-items: center; gap: 10px;
   font-size: 17px; font-weight: 700;
@@ -85,6 +89,7 @@ a { color: var(--coral-dark); }
 /* ===== Today panel ===== */
 .today-card {
   background: var(--card);
+  border: 1px solid var(--card-border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   padding: 0 0 12px;
@@ -98,7 +103,7 @@ a { color: var(--coral-dark); }
   width: 100%;
   height: 200px;
   overflow: hidden;
-  background: #2A1830;
+  background: #C97A76;
 }
 .today-card .hero img {
   width: 100%;
@@ -141,7 +146,8 @@ a { color: var(--coral-dark); }
   gap: 8px;
 }
 .stat {
-  background: var(--bg);
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(224, 160, 156, 0.50);
   border-radius: 12px;
   text-align: center;
   padding: 8px 4px 7px;
@@ -152,12 +158,13 @@ a { color: var(--coral-dark); }
 .stat span { font-size: 11px; color: var(--muted); }
 .quote {
   grid-column: 1 / -1;
-  background: linear-gradient(135deg, #FBF6F4, #F5D8D4);
+  background: linear-gradient(135deg, #F8DCD8, #F3D0CC);
+  border: 1px solid rgba(217, 137, 134, 0.40);
   border-radius: 12px;
   padding: 10px 12px;
   font-size: 13px;
   line-height: 1.55;
-  color: #3A1A16;
+  color: var(--text);
   cursor: pointer;
 }
 .quote em { font-style: normal; color: var(--muted); font-size: 12px; }
@@ -174,9 +181,12 @@ a { color: var(--coral-dark); }
   font-size: 14px;
   font-weight: 600;
 }
-.btn-primary { background: var(--coral); color: #fff; }
-.btn-primary:active { background: var(--coral-dark); }
-.btn-ghost { background: #fff; color: var(--coral-dark); border: 1px solid #E8C8C4; }
+.btn-primary {
+  background: linear-gradient(120deg, #E8A8A4 0%, #F0C0BC 100%);
+  color: #5C2426;
+}
+.btn-primary:active { filter: brightness(0.96); }
+.btn-ghost { background: rgba(255, 255, 255, 0.88); color: var(--coral-deep); border: 1px solid #E8A8A4; }
 .btn-danger { background: #FDE2E2; color: #9E2A2A; }
 
 .hint {
@@ -218,6 +228,7 @@ a { color: var(--coral-dark); }
 }
 .mini {
   background: var(--card);
+  border: 1px solid var(--card-border);
   border-radius: 14px;
   padding: 8px 6px 8px;
   box-shadow: var(--shadow);
@@ -239,7 +250,7 @@ a { color: var(--coral-dark); }
 }
 .dow { font-size: 9px; color: var(--muted); padding-bottom: 2px; }
 .dow span:nth-child(6), .dow span:nth-child(7),
-.month-dow span:nth-child(6), .month-dow span:nth-child(7) { color: #C45A50; }
+.month-dow span:nth-child(6), .month-dow span:nth-child(7) { color: #9A4040; }
 .mini .cell {
   min-height: 28px;
   border-radius: 6px;
@@ -337,17 +348,17 @@ a { color: var(--coral-dark); }
 .mcell.kind-休 { background: #FDECEC; }
 .mcell.kind-年休 { background: #E7F5DC; }
 .mcell.kind-班 { background: #E8F0F8; }
-.mcell.kind-周末 { background: #FDF0EC; }
-.mcell.is-today { box-shadow: inset 0 0 0 2px var(--coral); background: #FFF3C2; }
+.mcell.kind-周末 { background: #F6D8D4; }
+.mcell.is-today { box-shadow: inset 0 0 0 2px #D98986; background: #F0B8B4; }
 
 /* ===== Day sheet ===== */
 .backdrop {
   position: fixed; inset: 0; z-index: 40;
-  background: rgba(58, 26, 22, 0.45);
+  background: rgba(92, 36, 38, 0.40);
   display: flex; align-items: flex-end; justify-content: center;
 }
 .sheet {
-  background: var(--bg);
+  background: linear-gradient(180deg, #FAE6E2 0%, #F8DCD8 100%);
   width: 100%;
   max-width: 640px;
   max-height: min(92vh, 920px);
@@ -363,7 +374,7 @@ a { color: var(--coral-dark); }
 }
 .grab {
   width: 40px; height: 4px; border-radius: 2px;
-  background: #D4A8A0; margin: 4px auto 8px;
+  background: linear-gradient(90deg, #E8A8A4, #F0C0BC); margin: 4px auto 8px;
 }
 .sheet h2 { margin: 0 0 4px; font-size: 20px; }
 .sheet .meta { font-size: 13px; color: var(--muted); margin-bottom: 4px; line-height: 1.5; }
@@ -380,6 +391,7 @@ a { color: var(--coral-dark); }
 .pill-周末 { background: var(--周末); }
 .item-card {
   background: var(--card);
+  border: 1px solid var(--card-border);
   border-radius: 14px;
   padding: 10px 12px;
   margin-bottom: 8px;
@@ -392,7 +404,7 @@ a { color: var(--coral-dark); }
 .item-card .row-btns button {
   font-size: 13px; font-weight: 600;
   padding: 6px 10px; border-radius: 8px;
-  background: var(--bg);
+  background: rgba(248, 220, 216, 0.9);
 }
 .tag-高 { color: var(--high); font-weight: 700; }
 .tag-中 { color: var(--mid); font-weight: 700; }
@@ -414,6 +426,7 @@ a { color: var(--coral-dark); }
 /* settings */
 .settings .block {
   background: var(--card);
+  border: 1px solid var(--card-border);
   border-radius: var(--radius);
   padding: 14px;
   margin-bottom: 10px;
@@ -425,7 +438,7 @@ a { color: var(--coral-dark); }
 .toast {
   position: fixed; left: 50%; bottom: calc(24px + var(--safe-bottom));
   transform: translateX(-50%);
-  background: #3A1A16; color: #fff;
+  background: #5C2426; color: #fff;
   padding: 8px 14px; border-radius: 999px;
   font-size: 13px; z-index: 80;
   animation: rise 0.2s ease-out;
@@ -478,7 +491,7 @@ a { color: var(--coral-dark); }
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(255, 255, 255, 0.67);
+  background: linear-gradient(180deg, rgba(255, 228, 224, 0.67), rgba(255, 240, 236, 0.67));
   pointer-events: none;
   z-index: 1;
 }
@@ -489,11 +502,11 @@ a { color: var(--coral-dark); }
 }
 /* 全年总览小卡：白膜稍厚，日期更清楚 */
 .year-grid .mini.has-photo::before {
-  background: rgba(255, 248, 246, 0.73);
+  background: linear-gradient(180deg, rgba(255, 228, 224, 0.73), rgba(255, 240, 236, 0.73));
 }
 /* 本月大卡：照片更透一点 */
 .this-month .mini.has-photo::before {
-  background: rgba(255, 255, 255, 0.57);
+  background: linear-gradient(180deg, rgba(255, 228, 224, 0.57), rgba(255, 240, 236, 0.57));
 }
 .mini.has-photo .cell {
   background: rgba(255, 255, 255, 0.28);
@@ -502,32 +515,33 @@ a { color: var(--coral-dark); }
 .mini.has-photo .cell.kind-休 { background: rgba(253, 226, 226, 0.80); }
 .mini.has-photo .cell.kind-年休 { background: rgba(198, 224, 180, 0.80); }
 .mini.has-photo .cell.kind-班 { background: rgba(220, 230, 241, 0.80); }
-.mini.has-photo .cell.kind-周末 { background: rgba(255, 232, 238, 0.72); }
+.mini.has-photo .cell.kind-周末 { background: rgba(246, 216, 212, 0.78); }
 .mini.has-photo .cell.is-today {
-  background: rgba(255, 217, 102, 0.92);
-  box-shadow: inset 0 0 0 1.5px var(--coral);
+  background: rgba(240, 184, 180, 0.92);
+  box-shadow: inset 0 0 0 1.5px #D98986;
 }
 
 .month-wrap.has-photo {
   border-radius: var(--radius);
   padding: 10px 8px 12px;
   box-shadow: var(--shadow);
+  border: 1px solid var(--card-border);
 }
 .month-wrap.has-photo::before {
-  background: rgba(255, 255, 255, 0.61);
+  background: linear-gradient(180deg, rgba(255, 228, 224, 0.61), rgba(255, 240, 236, 0.61));
 }
 .month-wrap.has-photo .mcell {
   background: rgba(255, 255, 255, 0.42);
-  box-shadow: 0 1px 0 rgba(190, 78, 104, 0.06);
+  box-shadow: 0 1px 0 rgba(217, 137, 134, 0.16);
 }
 .month-wrap.has-photo .mcell.kind-国定 { background: rgba(255, 246, 200, 0.82); }
 .month-wrap.has-photo .mcell.kind-休 { background: rgba(253, 236, 236, 0.84); }
 .month-wrap.has-photo .mcell.kind-年休 { background: rgba(231, 245, 220, 0.84); }
 .month-wrap.has-photo .mcell.kind-班 { background: rgba(232, 240, 248, 0.84); }
-.month-wrap.has-photo .mcell.kind-周末 { background: rgba(255, 232, 238, 0.76); }
+.month-wrap.has-photo .mcell.kind-周末 { background: rgba(246, 216, 212, 0.82); }
 .month-wrap.has-photo .mcell.is-today {
-  background: rgba(255, 243, 194, 0.94);
-  box-shadow: inset 0 0 0 2px var(--coral);
+  background: rgba(240, 184, 180, 0.94);
+  box-shadow: inset 0 0 0 2px #D98986;
 }
 
 .month-photo-credit {

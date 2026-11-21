@@ -1,5 +1,5 @@
 /* 2027日历 service worker — static, cache-first, relative URLs */
-const CACHE = "cal2027-xz-v13";
+const CACHE = "cal2027-xz-v14";
 /* Shell only on install. Photos are cached at runtime (cache-first).
    The page posts {type:"precache", urls:[...]} for the current-month images. */
 const ASSETS = [
