@@ -1,10 +1,11 @@
-/* 锁屏壁纸预览 — personal, localStorage only for countdown */
+/* 锁屏壁纸预览 — personal, localStorage only for 纪念日 countdown */
 (function () {
   "use strict";
 
   const STORAGE_KEY = "calendar2027.xz.widget.v1";
   const PHOTOS = ["01", "02", "05", "06", "07", "09", "12", "13", "14"];
-  const DEFAULT_EVENT = { title: "下一场演唱会", date: "2027-06-20" };
+  const DEFAULT_TITLE = "肖战生日";
+  const OLD_CONCERT = { title: "下一场演唱会", date: "2027-06-20" };
 
   const $ = (id) => document.getElementById(id);
   let DATA = null;
@@ -15,15 +16,35 @@
   function todayISO() {
     return new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Shanghai" });
   }
+  function nextOct5(today) {
+    const [y, m, d] = today.split("-").map(Number);
+    if (m < 10 || (m === 10 && d <= 5)) return y + "-10-05";
+    return (y + 1) + "-10-05";
+  }
+  function isOldConcertDefault(o) {
+    return o && o.title === OLD_CONCERT.title && o.date === OLD_CONCERT.date;
+  }
+  function isBirthdayDefault(title, date) {
+    return title === DEFAULT_TITLE && /^\d{4}-10-05$/.test(date || "");
+  }
+  function defaultEvent() {
+    return { title: DEFAULT_TITLE, date: nextOct5(todayISO()) };
+  }
   function loadState() {
-    const base = { title: DEFAULT_EVENT.title, date: DEFAULT_EVENT.date, photo: 0 };
+    const base = { ...defaultEvent(), photo: 0 };
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (!raw) return base;
       const o = JSON.parse(raw);
+      if (Number.isInteger(o.photo)) {
+        base.photo = ((o.photo % PHOTOS.length) + PHOTOS.length) % PHOTOS.length;
+      }
+      if (isOldConcertDefault(o)) return base;
       if (o.title) base.title = String(o.title).slice(0, 24);
       if (/^\d{4}-\d{2}-\d{2}$/.test(o.date || "")) base.date = o.date;
-      if (Number.isInteger(o.photo)) base.photo = ((o.photo % PHOTOS.length) + PHOTOS.length) % PHOTOS.length;
+      if (isBirthdayDefault(base.title, base.date)) {
+        base.date = nextOct5(todayISO());
+      }
     } catch (e) {}
     return base;
   }
@@ -65,17 +86,23 @@
       (q.from ? ` <cite>${escapeHtml(q.from)}</cite>` : "");
   }
   function applyCountdown() {
-    $("count-title").textContent = state.title || DEFAULT_EVENT.title;
+    $("count-title").textContent = state.title || DEFAULT_TITLE;
     const days = daysUntil(state.date);
     const num = $("count-num");
+    const kicker = document.querySelector(".count-kicker");
     if (days === null) {
+      if (kicker) kicker.hidden = false;
       num.innerHTML = "请设置日期";
       return;
     }
     if (days === 0) {
-      num.innerHTML = "<em>今天</em>";
+      if (kicker) kicker.hidden = true;
+      const title = state.title || DEFAULT_TITLE;
+      const cake = /生日/.test(title) ? " 🎂" : "";
+      num.innerHTML = "今天是" + escapeHtml(title) + cake;
       return;
     }
+    if (kicker) kicker.hidden = false;
     if (days > 0) {
       num.innerHTML = "还有 <em>" + days + "</em> 天";
       return;
@@ -127,11 +154,11 @@
   }
   function closeEditor() { $("editor").hidden = true; }
   function saveEditor() {
-    const title = $("edit-title").value.trim().slice(0, 24) || DEFAULT_EVENT.title;
+    const title = $("edit-title").value.trim().slice(0, 24) || DEFAULT_TITLE;
     const date = $("edit-date").value;
     if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return;
     state.title = title;
-    state.date = date;
+    state.date = isBirthdayDefault(title, date) ? nextOct5(todayISO()) : date;
     saveState();
     applyCountdown();
     closeEditor();
@@ -164,7 +191,18 @@
     if (q.get("ui") === "0" || q.get("chrome") === "0") setToolbar(false);
   }
 
+  function persistIfChanged() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      const o = raw ? JSON.parse(raw) : {};
+      if (o.title !== state.title || o.date !== state.date || o.photo !== state.photo) saveState();
+    } catch (e) {
+      saveState();
+    }
+  }
+
   async function boot() {
+    persistIfChanged();
     bind();
     applyQuery();
     applyPhoto();
