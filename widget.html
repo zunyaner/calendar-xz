@@ -24,37 +24,19 @@
         <div id="lunar" class="lunar"></div>
         <div id="status" class="status" hidden></div>
       </section>
-      <section class="count-card" id="count-card">
-        <button type="button" class="edit" id="btn-edit-icon" aria-label="编辑纪念日">✎</button>
-        <div class="count-kicker">距离</div>
-        <div class="count-title" id="count-title"></div>
-        <div class="count-num" id="count-num"></div>
+      <section class="lyric-card" id="lyric-card" role="button" aria-label="换一句" tabindex="0">
+        <p class="lyric-line" id="lyric-line"></p>
+        <p class="lyric-from" id="lyric-from"></p>
       </section>
-      <p class="lyric" id="lyric"></p>
     </main>
     <nav id="toolbar" class="toolbar" aria-label="预览工具">
       <p class="hint">再点空白处可隐藏按钮，方便截图</p>
       <div class="bar">
         <button type="button" id="btn-photo">换图</button>
-        <button type="button" id="btn-edit">编辑纪念日</button>
+        <button type="button" id="btn-quote">换一句</button>
         <a href="./">返回日历</a>
       </div>
     </nav>
-  </div>
-  <div id="editor" class="editor" hidden>
-    <div class="editor-panel" role="dialog" aria-labelledby="editor-title">
-      <h2 id="editor-title">编辑纪念日</h2>
-      <label>名称
-        <input id="edit-title" type="text" maxlength="24" placeholder="肖战生日">
-      </label>
-      <label>日期
-        <input id="edit-date" type="date">
-      </label>
-      <div class="editor-actions">
-        <button type="button" class="ghost" id="btn-cancel">取消</button>
-        <button type="button" class="primary" id="btn-save">保存</button>
-      </div>
-    </div>
   </div>
   <script src="./js/widget.js" defer></script>
 </body>

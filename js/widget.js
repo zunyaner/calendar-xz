@@ -1,64 +1,31 @@
-/* 锁屏壁纸预览 — personal, localStorage only for 纪念日 countdown */
+/* 锁屏壁纸预览 — personal, no localStorage */
 (function () {
   "use strict";
 
-  const STORAGE_KEY = "calendar2027.xz.widget.v1";
   const PHOTOS = ["01", "02", "05", "06", "07", "09", "12", "13", "14"];
-  const DEFAULT_TITLE = "肖战生日";
-  const OLD_CONCERT = { title: "下一场演唱会", date: "2027-06-20" };
+  const FALLBACK_QUOTES = [
+    { text: "世界，带着爱去前进。", from: "《光点》" },
+    { text: "只为你的笑容不被辜负。", from: "《满足》" },
+    { text: "细数着余年。", from: "《余年》" },
+    { text: "天涯一曲共悠扬。", from: "《无羁》" },
+    { text: "丹心何须言在口，横笛闲吹落星斗。", from: "《曲尽陈情》" }
+  ];
+
+  function isWidgetFriendly(q) {
+    const text = (q && q.text) || "";
+    /* One line, or a comma we can break at — avoids a lone character wrapping. */
+    return [...text].length <= 12 || text.includes("，");
+  }
 
   const $ = (id) => document.getElementById(id);
   let DATA = null;
-  let state = loadState();
+  let quotes = FALLBACK_QUOTES.filter(isWidgetFriendly);
+  let photoIndex = 0;
   let quoteIndex = 0;
   let toolbarOn = true;
 
   function todayISO() {
     return new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Shanghai" });
-  }
-  function nextOct5(today) {
-    const [y, m, d] = today.split("-").map(Number);
-    if (m < 10 || (m === 10 && d <= 5)) return y + "-10-05";
-    return (y + 1) + "-10-05";
-  }
-  function isOldConcertDefault(o) {
-    return o && o.title === OLD_CONCERT.title && o.date === OLD_CONCERT.date;
-  }
-  function isBirthdayDefault(title, date) {
-    return title === DEFAULT_TITLE && /^\d{4}-10-05$/.test(date || "");
-  }
-  function defaultEvent() {
-    return { title: DEFAULT_TITLE, date: nextOct5(todayISO()) };
-  }
-  function loadState() {
-    const base = { ...defaultEvent(), photo: 0 };
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return base;
-      const o = JSON.parse(raw);
-      if (Number.isInteger(o.photo)) {
-        base.photo = ((o.photo % PHOTOS.length) + PHOTOS.length) % PHOTOS.length;
-      }
-      if (isOldConcertDefault(o)) return base;
-      if (o.title) base.title = String(o.title).slice(0, 24);
-      if (/^\d{4}-\d{2}-\d{2}$/.test(o.date || "")) base.date = o.date;
-      if (isBirthdayDefault(base.title, base.date)) {
-        base.date = nextOct5(todayISO());
-      }
-    } catch (e) {}
-    return base;
-  }
-  function saveState() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({
-      title: state.title, date: state.date, photo: state.photo
-    }));
-  }
-  function daysUntil(iso) {
-    const today = todayISO();
-    const a = Date.parse(today + "T00:00:00+08:00");
-    const b = Date.parse(iso + "T00:00:00+08:00");
-    if (Number.isNaN(a) || Number.isNaN(b)) return null;
-    return Math.round((b - a) / 86400000);
   }
   function rec(iso) { return DATA && DATA.days ? DATA.days[iso] : null; }
 
@@ -74,44 +41,52 @@
     return "";
   }
 
+  function escapeHtml(s) {
+    return String(s ?? "")
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+  /* Force a line break at the most balanced comma so long lyrics do not split mid-phrase. */
+  function formatLine(text) {
+    const s = text || "";
+    const n = [...s].length;
+    if (n <= 12 || !s.includes("，")) return escapeHtml(s);
+    let bestAt = -1, bestScore = Infinity;
+    for (let i = 0; i < s.length; i++) {
+      if (s[i] !== "，") continue;
+      const left = [...s.slice(0, i + 1)].length;
+      const score = Math.abs(left - (n - left));
+      if (score < bestScore) { bestScore = score; bestAt = i; }
+    }
+    if (bestAt < 0) return escapeHtml(s);
+    return escapeHtml(s.slice(0, bestAt + 1)) + "<br>" + escapeHtml(s.slice(bestAt + 1));
+  }
+
   function applyPhoto() {
-    const n = PHOTOS[state.photo];
-    $("bg").src = "./icons/widget-" + n + ".jpg";
+    $("bg").src = "./icons/widget-" + PHOTOS[photoIndex] + ".jpg";
   }
   function applyQuote() {
-    const qs = (DATA && DATA.quotes) || [];
-    if (!qs.length) { $("lyric").textContent = ""; return; }
-    const q = qs[quoteIndex % qs.length];
-    $("lyric").innerHTML = escapeHtml(q.text) +
-      (q.from ? ` <cite>${escapeHtml(q.from)}</cite>` : "");
+    if (!quotes.length) {
+      $("lyric-line").textContent = "";
+      $("lyric-from").textContent = "";
+      return;
+    }
+    const q = quotes[quoteIndex % quotes.length];
+    $("lyric-line").innerHTML = formatLine(q.text || "");
+    $("lyric-from").textContent = q.from || "";
   }
-  function applyCountdown() {
-    $("count-title").textContent = state.title || DEFAULT_TITLE;
-    const days = daysUntil(state.date);
-    const num = $("count-num");
-    const kicker = document.querySelector(".count-kicker");
-    if (days === null) {
-      if (kicker) kicker.hidden = false;
-      num.innerHTML = "请设置日期";
-      return;
-    }
-    if (days === 0) {
-      if (kicker) kicker.hidden = true;
-      const title = state.title || DEFAULT_TITLE;
-      const cake = /生日/.test(title) ? " 🎂" : "";
-      num.innerHTML = "今天是" + escapeHtml(title) + cake;
-      return;
-    }
-    if (kicker) kicker.hidden = false;
-    if (days > 0) {
-      num.innerHTML = "还有 <em>" + days + "</em> 天";
-      return;
-    }
-    num.innerHTML = "已过去 <em>" + Math.abs(days) + "</em> 天";
+  function nextPhoto() {
+    photoIndex = (photoIndex + 1) % PHOTOS.length;
+    applyPhoto();
+  }
+  function nextQuote() {
+    if (!quotes.length) return;
+    quoteIndex = (quoteIndex + 1) % quotes.length;
+    applyQuote();
   }
   function applyToday() {
     const iso = todayISO();
-    const [y, m, d] = iso.split("-").map(Number);
+    const [, m, d] = iso.split("-").map(Number);
     $("date").textContent = m + "月" + d + "日";
     const recd = rec(iso);
     const week = recd && recd.weekdayName ? recd.weekdayName : weekdayName(iso);
@@ -134,35 +109,7 @@
     const [y, m, d] = iso.split("-").map(Number);
     return "星期" + "日一二三四五六"[new Date(y, m - 1, d).getDay()];
   }
-  function escapeHtml(s) {
-    return String(s ?? "")
-      .replace(/&/g, "&amp;").replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-  }
 
-  function nextPhoto() {
-    state.photo = (state.photo + 1) % PHOTOS.length;
-    quoteIndex = (quoteIndex + 1) % Math.max(1, ((DATA && DATA.quotes) || []).length);
-    saveState();
-    applyPhoto();
-    applyQuote();
-  }
-  function openEditor() {
-    $("edit-title").value = state.title;
-    $("edit-date").value = state.date;
-    $("editor").hidden = false;
-  }
-  function closeEditor() { $("editor").hidden = true; }
-  function saveEditor() {
-    const title = $("edit-title").value.trim().slice(0, 24) || DEFAULT_TITLE;
-    const date = $("edit-date").value;
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return;
-    state.title = title;
-    state.date = isBirthdayDefault(title, date) ? nextOct5(todayISO()) : date;
-    saveState();
-    applyCountdown();
-    closeEditor();
-  }
   function setToolbar(on) {
     toolbarOn = on;
     $("toolbar").classList.toggle("is-off", !on);
@@ -171,50 +118,47 @@
 
   function bind() {
     document.getElementById("stage").addEventListener("click", (e) => {
-      if (e.target.closest(".toolbar") || e.target.closest(".edit") || e.target.closest(".editor")) return;
+      if (e.target.closest(".toolbar") || e.target.closest(".lyric-card")) return;
       setToolbar(!toolbarOn);
     });
-    $("btn-photo").addEventListener("click", (e) => { e.stopPropagation(); nextPhoto(); });
-    $("btn-edit").addEventListener("click", (e) => { e.stopPropagation(); openEditor(); });
-    $("btn-edit-icon").addEventListener("click", (e) => { e.stopPropagation(); openEditor(); });
-    $("btn-cancel").addEventListener("click", closeEditor);
-    $("btn-save").addEventListener("click", saveEditor);
-    $("editor").addEventListener("click", (e) => {
-      if (e.target.id === "editor") closeEditor();
+    $("lyric-card").addEventListener("click", (e) => { e.stopPropagation(); nextQuote(); });
+    $("lyric-card").addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); nextQuote(); }
     });
+    $("btn-photo").addEventListener("click", (e) => { e.stopPropagation(); nextPhoto(); });
+    $("btn-quote").addEventListener("click", (e) => { e.stopPropagation(); nextQuote(); });
   }
 
   function applyQuery() {
     const q = new URLSearchParams(location.search);
     const photo = q.get("photo");
-    if (photo && PHOTOS.includes(photo)) state.photo = PHOTOS.indexOf(photo);
+    if (photo && PHOTOS.includes(photo)) photoIndex = PHOTOS.indexOf(photo);
+    const quote = q.get("quote");
+    if (quote !== null && /^\d+$/.test(quote)) quoteIndex = Number(quote);
     if (q.get("ui") === "0" || q.get("chrome") === "0") setToolbar(false);
   }
 
-  function persistIfChanged() {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      const o = raw ? JSON.parse(raw) : {};
-      if (o.title !== state.title || o.date !== state.date || o.photo !== state.photo) saveState();
-    } catch (e) {
-      saveState();
-    }
-  }
-
   async function boot() {
-    persistIfChanged();
     bind();
     applyQuery();
     applyPhoto();
-    applyCountdown();
+    applyQuote();
     try {
       const res = await fetch("./data/calendar-data.json", { cache: "reload" });
       DATA = await res.json();
     } catch (e) {
       DATA = { quotes: [], days: {} };
     }
-    const qs = DATA.quotes || [];
-    quoteIndex = qs.length ? Math.floor(Math.random() * qs.length) : 0;
+    if ((DATA.quotes || []).length) {
+      const list = DATA.quotes.filter(isWidgetFriendly);
+      if (list.length) quotes = list;
+    }
+    const q = new URLSearchParams(location.search).get("quote");
+    if (q === null || !/^\d+$/.test(q)) {
+      quoteIndex = quotes.length ? Math.floor(Math.random() * quotes.length) : 0;
+    } else {
+      quoteIndex = Number(q) % Math.max(1, quotes.length);
+    }
     applyToday();
     applyQuote();
   }
