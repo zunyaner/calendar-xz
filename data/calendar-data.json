@@ -7294,7 +7294,8 @@
       "out": "hero-10.jpg",
       "month_out": "card-10.jpg",
       "object_pos": "center",
-      "month_pos": "center"
+      "month_pos": "center",
+      "hero_out": "hero-06.jpg"
     },
     {
       "id": "11",

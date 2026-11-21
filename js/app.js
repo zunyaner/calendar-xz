@@ -242,11 +242,18 @@
     bindNav();
   }
 
+  function heroForCurrentMonth() {
+    const photos = DATA.photos || [];
+    if (!photos.length) return null;
+    const ym = currentMonthYM();
+    return photos.find((ph) => ph.month === ym) || photos[0];
+  }
   function heroBlock() {
     if (!hero) return "";
     const pos = hero.object_pos || "center";
+    const src = hero.hero_out || hero.out;
     return `<div class="hero">
-            <img src="./icons/${escapeHtml(hero.out)}" alt="" style="object-position:${escapeHtml(pos)}">
+            <img src="./icons/${escapeHtml(src)}" alt="" style="object-position:${escapeHtml(pos)}">
             <div class="fade"></div>
           </div>`;
   }
@@ -677,8 +684,7 @@
       loadItems();
       const qs = DATA.quotes || [];
       quote = qs.length ? qs[Math.floor(Math.random() * qs.length)] : { text: "", from: "" };
-      const photos = DATA.photos || [];
-      hero = photos.length ? photos[Math.floor(Math.random() * photos.length)] : null;
+      hero = heroForCurrentMonth();
       render();
       window.addEventListener("hashchange", render);
       if ("serviceWorker" in navigator) {

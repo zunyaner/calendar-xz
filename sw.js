@@ -1,5 +1,5 @@
 /* 2027日历 service worker — static, cache-first, relative URLs */
-const CACHE = "cal2027-xz-v5";
+const CACHE = "cal2027-xz-v6";
 const ASSETS = [
   "./",
   "./index.html",
@@ -10,6 +10,9 @@ const ASSETS = [
   "./icons/icon-192.png",
   "./icons/icon-512.png",
   "./icons/apple-touch-icon.png",
+  "./icons/icon-512-maskable.png",
+  "./icons/favicon-32.png",
+  "./icons/favicon.ico",
   "./icons/hero-01.jpg",
   "./icons/hero-02.jpg",
   "./icons/hero-03.jpg",
