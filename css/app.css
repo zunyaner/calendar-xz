@@ -468,7 +468,7 @@ a { color: var(--coral-dark); }
   position: absolute;
   inset: 0;
   /* uniform warm wash: person stays visible, text has a lighter ground */
-  background: rgba(255, 248, 246, 0.30);
+  background: rgba(255, 248, 246, 0.45);
   pointer-events: none;
   z-index: 0;
 }
@@ -478,7 +478,7 @@ a { color: var(--coral-dark); }
   z-index: 1;
 }
 
-/* White numbers + dark outline — readable on dark jackets and bright stages */
+/* Dark-brown numbers + soft white glow — holds up on the lighter 45% wash */
 .mini.has-photo .mtitle,
 .mini.has-photo .dow,
 .mini.has-photo .cell .n,
@@ -488,36 +488,36 @@ a { color: var(--coral-dark); }
 .month-wrap.has-photo .mcell .lab,
 .month-wrap.has-photo .mcell .it,
 .month-wrap.has-photo .mcell .more {
-  color: #fff;
+  color: #3A1A16;
   text-shadow:
-    0 0 3px rgba(0, 0, 0, 0.85),
-    0 1px 2px rgba(0, 0, 0, 0.9),
-    1px 0 1px rgba(0, 0, 0, 0.7),
-    -1px 0 1px rgba(0, 0, 0, 0.7),
-    0 1px 1px rgba(0, 0, 0, 0.7),
-    0 -1px 1px rgba(0, 0, 0, 0.7);
+    0 0 4px rgba(255, 255, 255, 0.95),
+    0 1px 2px rgba(255, 255, 255, 0.9),
+    1px 0 1px rgba(255, 255, 255, 0.8),
+    -1px 0 1px rgba(255, 255, 255, 0.8),
+    0 1px 1px rgba(255, 255, 255, 0.8),
+    0 -1px 1px rgba(255, 255, 255, 0.8);
 }
 .mini.has-photo .mtitle {
   font-weight: 800;
 }
 .mini.has-photo .mtitle em {
-  color: rgba(255, 255, 255, 0.92);
+  color: #5A2A24;
 }
 .mini.has-photo .cell .n,
 .month-wrap.has-photo .mcell .n {
   font-weight: 800;
-  color: #fff;
+  color: #3A1A16;
 }
 .mini.has-photo .dow span:nth-child(6),
 .mini.has-photo .dow span:nth-child(7),
 .month-wrap.has-photo .month-dow span:nth-child(6),
 .month-wrap.has-photo .month-dow span:nth-child(7) {
-  color: #FFD0CC;
+  color: #911005;
 }
 .mini.has-photo .cell.kind-休 .lab,
 .mini.has-photo .cell.kind-国定 .lab,
 .month-wrap.has-photo .mcell .lab.lunar {
-  color: #fff;
+  color: #3A1A16;
 }
 
 .mini.has-photo .cell {
