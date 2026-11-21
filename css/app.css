@@ -467,14 +467,8 @@ a { color: var(--coral-dark); }
   content: "";
   position: absolute;
   inset: 0;
-  /* light veil only at the top for the title; the person stays clear */
-  background: linear-gradient(
-    180deg,
-    rgba(255, 252, 250, 0.38) 0%,
-    rgba(255, 252, 250, 0.10) 16%,
-    rgba(255, 252, 250, 0.00) 32%,
-    rgba(8, 2, 2, 0.10) 100%
-  );
+  /* uniform warm wash: person stays visible, text has a lighter ground */
+  background: rgba(255, 248, 246, 0.30);
   pointer-events: none;
   z-index: 0;
 }
@@ -483,33 +477,59 @@ a { color: var(--coral-dark); }
   position: relative;
   z-index: 1;
 }
+
+/* White numbers + dark outline — readable on dark jackets and bright stages */
 .mini.has-photo .mtitle,
 .mini.has-photo .dow,
-.month-wrap.has-photo .month-dow {
-  color: #2a1410;
-  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.95), 0 0 8px rgba(255, 255, 255, 0.8);
-}
-.mini.has-photo .mtitle em {
-  color: #4a2a24;
-}
-.mini.has-photo .cell {
-  background: transparent;
-}
 .mini.has-photo .cell .n,
 .mini.has-photo .cell .lab,
+.month-wrap.has-photo .month-dow,
 .month-wrap.has-photo .mcell .n,
 .month-wrap.has-photo .mcell .lab,
 .month-wrap.has-photo .mcell .it,
 .month-wrap.has-photo .mcell .more {
-  text-shadow: 0 0 4px rgba(255, 255, 255, 0.95), 0 1px 2px rgba(255, 255, 255, 0.9);
+  color: #fff;
+  text-shadow:
+    0 0 3px rgba(0, 0, 0, 0.85),
+    0 1px 2px rgba(0, 0, 0, 0.9),
+    1px 0 1px rgba(0, 0, 0, 0.7),
+    -1px 0 1px rgba(0, 0, 0, 0.7),
+    0 1px 1px rgba(0, 0, 0, 0.7),
+    0 -1px 1px rgba(0, 0, 0, 0.7);
 }
-.mini.has-photo .cell.kind-国定 { background: rgba(255, 220, 80, 0.40); }
-.mini.has-photo .cell.kind-休 { background: rgba(235, 90, 90, 0.32); }
-.mini.has-photo .cell.kind-年休 { background: rgba(120, 180, 90, 0.36); }
-.mini.has-photo .cell.kind-班 { background: rgba(80, 130, 190, 0.32); }
-.mini.has-photo .cell.kind-周末 { background: rgba(255, 255, 255, 0.10); }
+.mini.has-photo .mtitle {
+  font-weight: 800;
+}
+.mini.has-photo .mtitle em {
+  color: rgba(255, 255, 255, 0.92);
+}
+.mini.has-photo .cell .n,
+.month-wrap.has-photo .mcell .n {
+  font-weight: 800;
+  color: #fff;
+}
+.mini.has-photo .dow span:nth-child(6),
+.mini.has-photo .dow span:nth-child(7),
+.month-wrap.has-photo .month-dow span:nth-child(6),
+.month-wrap.has-photo .month-dow span:nth-child(7) {
+  color: #FFD0CC;
+}
+.mini.has-photo .cell.kind-休 .lab,
+.mini.has-photo .cell.kind-国定 .lab,
+.month-wrap.has-photo .mcell .lab.lunar {
+  color: #fff;
+}
+
+.mini.has-photo .cell {
+  background: transparent;
+}
+.mini.has-photo .cell.kind-国定 { background: rgba(255, 220, 80, 0.46); }
+.mini.has-photo .cell.kind-休 { background: rgba(235, 90, 90, 0.38); }
+.mini.has-photo .cell.kind-年休 { background: rgba(120, 180, 90, 0.40); }
+.mini.has-photo .cell.kind-班 { background: rgba(80, 130, 190, 0.38); }
+.mini.has-photo .cell.kind-周末 { background: rgba(255, 255, 255, 0.12); }
 .mini.has-photo .cell.is-today {
-  background: rgba(255, 200, 60, 0.55);
+  background: rgba(255, 200, 60, 0.72);
   box-shadow: inset 0 0 0 1.5px var(--coral);
 }
 
@@ -520,18 +540,18 @@ a { color: var(--coral-dark); }
   background-position: center 22%;
 }
 .month-wrap.has-photo .mcell {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.18);
   box-shadow: none;
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
-.month-wrap.has-photo .mcell.kind-国定 { background: rgba(255, 230, 120, 0.42); }
-.month-wrap.has-photo .mcell.kind-休 { background: rgba(235, 90, 90, 0.30); }
-.month-wrap.has-photo .mcell.kind-年休 { background: rgba(120, 180, 90, 0.34); }
-.month-wrap.has-photo .mcell.kind-班 { background: rgba(80, 130, 190, 0.30); }
-.month-wrap.has-photo .mcell.kind-周末 { background: rgba(255, 255, 255, 0.10); }
+.month-wrap.has-photo .mcell.kind-国定 { background: rgba(255, 230, 120, 0.50); }
+.month-wrap.has-photo .mcell.kind-休 { background: rgba(235, 90, 90, 0.38); }
+.month-wrap.has-photo .mcell.kind-年休 { background: rgba(120, 180, 90, 0.42); }
+.month-wrap.has-photo .mcell.kind-班 { background: rgba(80, 130, 190, 0.38); }
+.month-wrap.has-photo .mcell.kind-周末 { background: rgba(255, 255, 255, 0.16); }
 .month-wrap.has-photo .mcell.is-today {
-  background: rgba(255, 210, 80, 0.55);
+  background: rgba(255, 210, 80, 0.72);
   box-shadow: inset 0 0 0 2px var(--coral);
 }
 
